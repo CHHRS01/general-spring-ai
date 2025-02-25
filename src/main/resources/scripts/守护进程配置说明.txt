@@ -1,0 +1,9 @@
+守护进程配置说明
+1、替换 daemon-process.sh文件到项目目录下，保证跟jar文件同级
+2、添加脚本执行权限 chmod +x ./daemon-process.sh
+3、添加用户定时任务
+注：此步骤需要使用项目部署的用户配置
+执行 ： crontab -e 命令
+若提示选择 editor ，选 3
+在文件 最后一行 添加如下命令：
+*/2 * * * * sh ~/atmp/daemon-process.sh >> ~/atmp/logs/daemon.log

@@ -1,0 +1,45 @@
+#!/bin/bash
+
+echo "checking user..."
+WHOAMI=`exec <&- 2>&-; which whoami || type whoami`
+WHO=`$WHOAMI`
+if [ "$WHO" = "root" ]
+then 
+	echo "You are superuser,portal can not be executed by root."
+	exit
+else 
+	echo "Done."
+fi
+
+CUR_DIR=$(pwd)
+jdk=$JAVA_HOME/bin
+JAR_NAME=atmp.jar
+
+echo "Begin Shell"
+
+start() {
+    echo start app
+    nohup $jdk/java -jar ${JAR_NAME} >> /dev/null 2>&1 &
+}
+stop() {
+    PIDS=`ps -ef | grep -w ${JAR_NAME} | grep -v grep | awk '{ print $2 }'`
+    kill -9 $PIDS
+    echo stop app on $PIDS
+}
+show() {
+    PIDS=`ps -ef | grep -w ${JAR_NAME} | grep -v grep | awk '{ print $2 }'`
+    if [ "$PIDS" != "" ]
+    then
+        echo app is running on $PIDS
+    else
+        echo app is not starting
+    fi
+}
+show
+if [ "$PIDS" != "" ] 
+then
+    stop
+    sleep 2
+    echo app is terminated.
+fi
+echo Done.

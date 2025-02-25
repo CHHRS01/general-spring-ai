@@ -1,5 +1,5 @@
 server:
-  port: 16886
+  port: 8080
   servlet:
     context-path: /aiTest
     encoding:
@@ -20,16 +20,18 @@ spring:
     date-format: yyyy-MM-dd HH:mm:ss
     time-zone: GMT+8
   ai:
-    openai:
-      base-url: https://api.openai.com
-      api-key: key
-      model: gpt-4o-mini
-      temperature: 0.7
-      max-tokens: 2000
-      connect-timeout: 600000
-      socket-timeout: 600000
-      retry:
-        max-attempts: 3
-        initial-interval: 1000
-        multiplier: 2.0
-        max-interval: 10000
+    ollama:
+      base-url: http://192.188.80.165:11434
+      timeout: 30000
+      chat:
+        model: qwen2.5-coder:32b
+    performance:
+      test:
+        concurrent-users: 10
+        requests-per-user: 5
+        request-timeout: 30000
+        test-prompt: "测试大模型的性能和响应时间"
+        collect-detailed-metrics: true
+        result-output-dir: "performance-test-results"
+
+

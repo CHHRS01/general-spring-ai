@@ -14,7 +14,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @RestController
-@RequestMapping("/ai")
+@RequestMapping("/all")
 public class AiController {
 
     @Autowired
